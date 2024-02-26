@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conectar {
-	protected Connection cn;
+	protected static Connection cn;
 
 	private String host = "localhost";
 	private String bbdd = "agencia_viajes";
