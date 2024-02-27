@@ -1,5 +1,6 @@
 package modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,5 +59,35 @@ public class GestorBBDD extends Conectar {
         }
 
         return clientes;
+    }
+    
+    
+    public static ArrayList<Habitaciones> obtenerHabitacionesPorHotel(int idHotel) {
+        ArrayList<Habitaciones> habitaciones = new ArrayList<>();
+        String sql = "SELECT * FROM habitaciones WHERE id_hotel = ?";
+
+        try (Connection conn = cn;
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, idHotel);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int idHabitacion = rs.getInt("id");
+                int id_hotel = rs.getInt("id_hotel");
+                String numero = rs.getString("numero");
+                String descripcion = rs.getString("descripcion");
+                double precio = rs.getDouble("precio");
+                
+                Habitaciones habitacion = new Habitaciones(idHabitacion, id_hotel, numero, descripcion, precio);
+                habitaciones.add(habitacion);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las habitaciones del hotel desde la base de datos.");
+            e.printStackTrace();
+        }
+
+        return habitaciones;
     }
 }

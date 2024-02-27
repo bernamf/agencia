@@ -27,23 +27,30 @@ public class Main {
             Menu.mostrarMenuPrincipal();
             opcion = Integer.parseInt(scanner.nextLine());
             switch (opcion) {
-                case 1:
+                case Menu.REGISTRAR_CLIENTE:
                     Clientes cliente = Menu.registrarCliente(scanner);
                     gestorBBDD.conectar();
                     gestorBBDD.registrarCliente(cliente);
                     gestorBBDD.cerrar();
                     break;
-                case 2:
+                case Menu.REALIZAR_RESERVA:
                     Menu.realizarReserva();
                     break;
-                case 3:
+                case Menu.MOSTRAR_CLIENTES:
                     System.out.println("esta es la lista de todos los clientes:");
                     gestorBBDD.conectar();
                     ArrayList clientes = gestorBBDD.obtenerClientes();
                     Visor.visualizarClientesPantalla(clientes);
                     gestorBBDD.cerrar();
                     break;
-                case 4:
+                case Menu.MOSTRAR_LAS_HABITACIONES:
+                	int idHotel = Menu.preguntaIdHotel(scanner);
+                    gestorBBDD.conectar();
+                    ArrayList habitaciones = gestorBBDD.obtenerHabitacionesPorHotel(idHotel);
+                    Visor.visualizarHabitacionesPantalla(habitaciones);
+                    gestorBBDD.cerrar();
+                    break;
+                case Menu.SALIR:
                     System.out.println("Saliendo del programa...");
                     break;
                 default:

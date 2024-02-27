@@ -3,16 +3,23 @@ package vista;
 import java.util.Scanner;
 
 import modelo.Clientes;
+import modelo.Reservas;
 
 public class Menu {
    
+	public static final int SALIR = 0;
+	public static final int REGISTRAR_CLIENTE = 1;
+	public static final int REALIZAR_RESERVA = 2;
+	public static final int MOSTRAR_CLIENTES = 3;
+	public static final int MOSTRAR_LAS_HABITACIONES = 4;
 
     public static void mostrarMenuPrincipal() {
         System.out.println("Bienvenido a la Agencia de Viajes");
-        System.out.println("1. Registrar Cliente");
-        System.out.println("2. Realizar Reserva");
-        System.out.println("3. mostrar clientes");
-        System.out.println("4. Salir");
+        System.out.println(REGISTRAR_CLIENTE+". Registrar Cliente");
+        System.out.println(REALIZAR_RESERVA+". Realizar Reserva");
+        System.out.println(MOSTRAR_CLIENTES+". mostrar clientes");
+        System.out.println(MOSTRAR_LAS_HABITACIONES+". mostrar las habitaciones de un hotel");
+        System.out.println(SALIR +". Salir");
         System.out.println("Seleccione una opción:");
     }
 
@@ -34,13 +41,30 @@ public class Menu {
         
  
     }
-    public static void realizarReserva() {
-        Scanner scanner = new Scanner(System.in);
+    public static Reservas registrarReserva(Scanner scanner) {
         System.out.println("Ingrese los datos de la reserva:");
-        // Aquí se pedirían y leerían los datos necesarios para la reserva
-        // Luego se llamaría al método correspondiente para guardar la reserva en la base de datos
-        // GestorBD.insertarReserva(cliente, hotel, fechaEntrada, fechaSalida, tipoHabitacion);
-        System.out.println("Reserva realizada exitosamente.");
+        System.out.print("ID: ");
+        int id = scanner.nextInt();
+        System.out.print("ID Habitación: ");
+        int idHabitacion = scanner.nextInt();
+        System.out.print("DNI: ");
+        String dni = scanner.next();
+        System.out.print("Fecha de inicio (formato yyyy-MM-dd): ");
+        String desde = scanner.next();
+        System.out.print("Fecha de fin (formato yyyy-MM-dd): ");
+        String hasta = scanner.next();
+        
+     
+        Reservas reserva = new Reservas(id, idHabitacion, dni, desde, hasta);
+		return reserva;
+    }
+    
+    public static int preguntaIdHotel(Scanner scanner) {
+    	
+    	System.out.println("introduce el id del hotel que quieres visualizar");
+    	int idHotel = Integer.parseInt(scanner.nextLine());
+    	return idHotel;
+    	
     }
     
     
