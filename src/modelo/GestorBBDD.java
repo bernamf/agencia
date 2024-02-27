@@ -90,4 +90,32 @@ public class GestorBBDD extends Conectar {
 
         return habitaciones;
     }
+    
+    
+    
+    public static void realizarReserva(Reservas reserva){
+    	
+    	String sql = "INSERT INTO reservas (id, id_habitacion, dni, desde, hasta) VALUES (?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement stmt = cn.prepareStatement(sql);
+
+            stmt.setInt(1, reserva.getId());
+            stmt.setInt(2, reserva.getId_habitacion());
+            stmt.setString(3, reserva.getDni());
+            java.sql.Date fechaSQL = new java.sql.Date(reserva.getDesde().getTime());
+            stmt.setDate(4, fechaSQL);
+            java.sql.Date fechaSQL2 = new java.sql.Date(reserva.getHasta().getTime());
+            stmt.setDate(5, fechaSQL2);
+            stmt.executeUpdate();
+            System.out.println("Cliente insertado correctamente.");
+
+        } catch (SQLException e) {
+            System.out.println("Error al insertar el cliente en la base de datos.");
+            e.printStackTrace();
+        }
+    	
+	
+    	
+    }
 }

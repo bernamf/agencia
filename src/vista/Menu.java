@@ -1,5 +1,8 @@
 package vista;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import modelo.Clientes;
@@ -41,7 +44,7 @@ public class Menu {
         
  
     }
-    public static Reservas registrarReserva(Scanner scanner) {
+    public static Reservas registrarReserva(Scanner scanner) throws ParseException {
         System.out.println("Ingrese los datos de la reserva:");
         System.out.print("ID: ");
         int id = scanner.nextInt();
@@ -50,12 +53,14 @@ public class Menu {
         System.out.print("DNI: ");
         String dni = scanner.next();
         System.out.print("Fecha de inicio (formato yyyy-MM-dd): ");
-        String desde = scanner.next();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateInicio= sdf.parse(scanner.nextLine());
         System.out.print("Fecha de fin (formato yyyy-MM-dd): ");
-        String hasta = scanner.next();
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+        Date datefIN= sdf2.parse(scanner.nextLine());
         
      
-        Reservas reserva = new Reservas(id, idHabitacion, dni, desde, hasta);
+        Reservas reserva = new Reservas(id, idHabitacion, dni, dateInicio, datefIN);
 		return reserva;
     }
     

@@ -1,23 +1,25 @@
 package main;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 import modelo.Clientes;
 import modelo.GestorBBDD;
+import modelo.Reservas;
 import vista.Menu;
 import vista.Visor;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 
 		run();
 		
 	}
 	
-	public static void run() {
+	public static void run() throws ParseException {
 		
 		GestorBBDD gestorBBDD = new GestorBBDD();
 		
@@ -34,7 +36,10 @@ public class Main {
                     gestorBBDD.cerrar();
                     break;
                 case Menu.REALIZAR_RESERVA:
-                    Menu.realizarReserva();
+                    Reservas reserva =Menu.registrarReserva(scanner);
+                    gestorBBDD.conectar();
+                    gestorBBDD.realizarReserva(reserva);
+                    gestorBBDD.cerrar();
                     break;
                 case Menu.MOSTRAR_CLIENTES:
                     System.out.println("esta es la lista de todos los clientes:");
