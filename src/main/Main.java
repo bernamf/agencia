@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import modelo.Clientes;
 import modelo.GestorBBDD;
+import modelo.Habitaciones;
 import modelo.Reservas;
 import vista.Menu;
 import vista.Visor;
@@ -53,6 +54,13 @@ public class Main {
                     gestorBBDD.conectar();
                     ArrayList habitaciones = gestorBBDD.obtenerHabitacionesPorHotel(idHotel);
                     Visor.visualizarHabitacionesPantalla(habitaciones);
+                    gestorBBDD.cerrar();
+                    break;
+                case Menu.MODIFICAR_HABITACION:
+                	int idHabitacion = Menu.preguntarIdHabitacion(scanner);
+                	Habitaciones habitacion = Menu.pedirDatosNuevaHabitacion(idHabitacion);
+                    gestorBBDD.conectar();
+                    gestorBBDD.modificarHabitacion(idHabitacion, habitacion);
                     gestorBBDD.cerrar();
                     break;
                 case Menu.SALIR:

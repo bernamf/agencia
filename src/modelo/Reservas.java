@@ -10,8 +10,8 @@ public class Reservas {
 	private Date desde;
 	private Date hasta;
 	
-	public Reservas(int id, int id_habitacion, String dni, Date desde, Date hasta) {
-		this.id = id;
+	public Reservas( int id_habitacion, String dni, Date desde, Date hasta) {
+		
 		this.id_habitacion = id_habitacion;
 		this.dni = dni;
 		this.desde = desde;

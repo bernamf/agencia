@@ -95,27 +95,59 @@ public class GestorBBDD extends Conectar {
     
     public static void realizarReserva(Reservas reserva){
     	
-    	String sql = "INSERT INTO reservas (id, id_habitacion, dni, desde, hasta) VALUES (?, ?, ?, ?, ?)";
+    	String sql = "INSERT INTO reservas ( id_habitacion, dni, desde, hasta) VALUES (?, ?, ?, ?)";
 
         try {
             PreparedStatement stmt = cn.prepareStatement(sql);
 
-            stmt.setInt(1, reserva.getId());
-            stmt.setInt(2, reserva.getId_habitacion());
-            stmt.setString(3, reserva.getDni());
+            
+            stmt.setInt(1, reserva.getId_habitacion());
+            stmt.setString(2, reserva.getDni());
             java.sql.Date fechaSQL = new java.sql.Date(reserva.getDesde().getTime());
-            stmt.setDate(4, fechaSQL);
+            stmt.setDate(3, fechaSQL);
             java.sql.Date fechaSQL2 = new java.sql.Date(reserva.getHasta().getTime());
-            stmt.setDate(5, fechaSQL2);
+            stmt.setDate(4, fechaSQL2);
             stmt.executeUpdate();
-            System.out.println("Cliente insertado correctamente.");
+            System.out.println("Reserva insertado correctamente.");
 
         } catch (SQLException e) {
-            System.out.println("Error al insertar el cliente en la base de datos.");
+            System.out.println("Error al insertar la reserva en la base de datos.");
+            e.printStackTrace();
+        
+        }
+	
+    }
+    
+    public static void modificarHabitacion(int idHabitacion, Habitaciones habitacion) {
+        // Construye la consulta SQL para actualizar la habitación
+        String sql = "UPDATE habitaciones SET id_hotel = ?, numero = ?, descripcion = ?, precio = ? WHERE id = ?";
+
+        try {
+            // Crea un objeto PreparedStatement
+            PreparedStatement stmt = cn.prepareStatement(sql);
+
+            // Establece los valores de los parámetros en la consulta SQL
+            stmt.setInt(1, habitacion.getId_hotel());
+            stmt.setString(2, habitacion.getNumero());
+            stmt.setString(3, habitacion.getDescripcion());
+            stmt.setDouble(4, habitacion.getPrecio());
+            stmt.setInt(5, idHabitacion);
+
+            // Ejecuta la consulta SQL
+            stmt.executeUpdate();
+
+            // Cierra el PreparedStatement
+            stmt.close();
+
+            System.out.println("Habitación modificada correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al modificar la habitación en la base de datos.");
             e.printStackTrace();
         }
-    	
-	
-    	
     }
+    
+    
+    
+    
+    
 }
